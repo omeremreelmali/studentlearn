@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="studentlearnModelStoreContainer" CdmEntityContainer="studentlearnEntities1">
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="studentlearnModel.category">
+        <MappingFragment StoreEntitySet="categories">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="questions">
+      <EntityTypeMapping TypeName="studentlearnModel.question">
+        <MappingFragment StoreEntitySet="question">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="questionName" ColumnName="questionName" />
+          <ScalarProperty Name="questionText" ColumnName="questionText" />
+          <ScalarProperty Name="reply" ColumnName="reply" />
+          <ScalarProperty Name="reply1" ColumnName="reply1" />
+          <ScalarProperty Name="reply2" ColumnName="reply2" />
+          <ScalarProperty Name="reply3" ColumnName="reply3" />
+          <ScalarProperty Name="reply4" ColumnName="reply4" />
+          <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="quizs">
+      <EntityTypeMapping TypeName="studentlearnModel.quiz">
+        <MappingFragment StoreEntitySet="quiz">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="paragrafTrue" ColumnName="paragrafTrue" />
+          <ScalarProperty Name="paragrafFalse" ColumnName="paragrafFalse" />
+          <ScalarProperty Name="dilbilgisiTrue" ColumnName="dilbilgisiTrue" />
+          <ScalarProperty Name="dilbilgisiFalse" ColumnName="dilbilgisiFalse" />
+          <ScalarProperty Name="anlatimTrue" ColumnName="anlatimTrue" />
+          <ScalarProperty Name="anlatimFalse" ColumnName="anlatimFalse" />
+          <ScalarProperty Name="siirTrue" ColumnName="siirTrue" />
+          <ScalarProperty Name="siirFalse" ColumnName="siirFalse" />
+          <ScalarProperty Name="divanTrue" ColumnName="divanTrue" />
+          <ScalarProperty Name="divanFalse" ColumnName="divanFalse" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="quizMark" ColumnName="quizMark" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userrates">
+      <EntityTypeMapping TypeName="studentlearnModel.userrate">
+        <MappingFragment StoreEntitySet="userrate">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="paragraf" ColumnName="paragraf" />
+          <ScalarProperty Name="dilbilgisi" ColumnName="dilbilgisi" />
+          <ScalarProperty Name="anlatim" ColumnName="anlatim" />
+          <ScalarProperty Name="siir" ColumnName="siir" />
+          <ScalarProperty Name="divan" ColumnName="divan" />
+          <ScalarProperty Name="date" ColumnName="date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="studentlearnModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="pass" ColumnName="pass" />
+          <ScalarProperty Name="authority" ColumnName="authority" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

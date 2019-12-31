@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="studentlearnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="question">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="questionName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="questionText" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reply" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reply1" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reply2" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reply3" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="reply4" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="categoryID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="quiz">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="paragrafTrue" Type="Int32" Nullable="false" />
+    <Property Name="paragrafFalse" Type="Int32" Nullable="false" />
+    <Property Name="dilbilgisiTrue" Type="Int32" Nullable="false" />
+    <Property Name="dilbilgisiFalse" Type="Int32" Nullable="false" />
+    <Property Name="anlatimTrue" Type="Int32" Nullable="false" />
+    <Property Name="anlatimFalse" Type="Int32" Nullable="false" />
+    <Property Name="siirTrue" Type="Int32" Nullable="false" />
+    <Property Name="siirFalse" Type="Int32" Nullable="false" />
+    <Property Name="divanTrue" Type="Int32" Nullable="false" />
+    <Property Name="divanFalse" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" />
+    <Property Name="quizMark" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.quiz_ibfk_1" FromRole="quiz" ToRole="users" />
+  </EntityType>
+  <EntityType Name="userrate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="paragraf" Type="Int32" Nullable="false" />
+    <Property Name="dilbilgisi" Type="Int32" Nullable="false" />
+    <Property Name="anlatim" Type="Int32" Nullable="false" />
+    <Property Name="siir" Type="Int32" Nullable="false" />
+    <Property Name="divan" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="user" Relationship="Self.userrate_ibfk_1" FromRole="userrate" ToRole="users" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="pass" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="authority" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="quizs" Relationship="Self.quiz_ibfk_1" FromRole="users" ToRole="quiz" />
+    <NavigationProperty Name="userrates" Relationship="Self.userrate_ibfk_1" FromRole="users" ToRole="userrate" />
+  </EntityType>
+  <Association Name="quiz_ibfk_1">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="quiz" Type="Self.quiz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="quiz">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userrate_ibfk_1">
+    <End Role="users" Type="Self.user" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="userrate" Type="Self.userrate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="userrate">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="studentlearnEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="questions" EntityType="Self.question" />
+    <EntitySet Name="quizs" EntityType="Self.quiz" />
+    <EntitySet Name="userrates" EntityType="Self.userrate" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <AssociationSet Name="quiz_ibfk_1" Association="Self.quiz_ibfk_1">
+      <End Role="users" EntitySet="users" />
+      <End Role="quiz" EntitySet="quizs" />
+    </AssociationSet>
+    <AssociationSet Name="userrate_ibfk_1" Association="Self.userrate_ibfk_1">
+      <End Role="users" EntitySet="users" />
+      <End Role="userrate" EntitySet="userrates" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

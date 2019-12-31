@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="studentlearnModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="categories">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="55" Nullable="false" />
+  </EntityType>
+  <EntityType Name="question">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="questionName" Type="text" Nullable="false" />
+    <Property Name="questionText" Type="text" Nullable="false" />
+    <Property Name="reply" Type="text" Nullable="false" />
+    <Property Name="reply1" Type="text" Nullable="false" />
+    <Property Name="reply2" Type="text" Nullable="false" />
+    <Property Name="reply3" Type="text" Nullable="false" />
+    <Property Name="reply4" Type="text" Nullable="false" />
+    <Property Name="categoryID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="quiz">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="paragrafTrue" Type="int" Nullable="false" />
+    <Property Name="paragrafFalse" Type="int" Nullable="false" />
+    <Property Name="dilbilgisiTrue" Type="int" Nullable="false" />
+    <Property Name="dilbilgisiFalse" Type="int" Nullable="false" />
+    <Property Name="anlatimTrue" Type="int" Nullable="false" />
+    <Property Name="anlatimFalse" Type="int" Nullable="false" />
+    <Property Name="siirTrue" Type="int" Nullable="false" />
+    <Property Name="siirFalse" Type="int" Nullable="false" />
+    <Property Name="divanTrue" Type="int" Nullable="false" />
+    <Property Name="divanFalse" Type="int" Nullable="false" />
+    <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
+    <Property Name="quizMark" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="userrate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="paragraf" Type="int" Nullable="false" />
+    <Property Name="dilbilgisi" Type="int" Nullable="false" />
+    <Property Name="anlatim" Type="int" Nullable="false" />
+    <Property Name="siir" Type="int" Nullable="false" />
+    <Property Name="divan" Type="int" Nullable="false" />
+    <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="80" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="pass" Type="text" Nullable="false" />
+    <Property Name="authority" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="quiz_ibfk_1">
+    <End Role="users" Type="Self.users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="quiz" Type="Self.quiz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="quiz">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userrate_ibfk_1">
+    <End Role="users" Type="Self.users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="userrate" Type="Self.userrate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="userrate">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="studentlearnModelStoreContainer">
+    <EntitySet Name="categories" EntityType="Self.categories" Schema="studentlearn" store:Type="Tables" />
+    <EntitySet Name="question" EntityType="Self.question" Schema="studentlearn" store:Type="Tables" />
+    <EntitySet Name="quiz" EntityType="Self.quiz" Schema="studentlearn" store:Type="Tables" />
+    <EntitySet Name="userrate" EntityType="Self.userrate" Schema="studentlearn" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="studentlearn" store:Type="Tables" />
+    <AssociationSet Name="quiz_ibfk_1" Association="Self.quiz_ibfk_1">
+      <End Role="users" EntitySet="users" />
+      <End Role="quiz" EntitySet="quiz" />
+    </AssociationSet>
+    <AssociationSet Name="userrate_ibfk_1" Association="Self.userrate_ibfk_1">
+      <End Role="users" EntitySet="users" />
+      <End Role="userrate" EntitySet="userrate" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

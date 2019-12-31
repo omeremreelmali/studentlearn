@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="studentlearnModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="55" Nullable="false" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="questionName" Type="text" Nullable="false" />
+          <Property Name="questionText" Type="text" Nullable="false" />
+          <Property Name="reply" Type="text" Nullable="false" />
+          <Property Name="reply1" Type="text" Nullable="false" />
+          <Property Name="reply2" Type="text" Nullable="false" />
+          <Property Name="reply3" Type="text" Nullable="false" />
+          <Property Name="reply4" Type="text" Nullable="false" />
+          <Property Name="categoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quiz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="paragrafTrue" Type="int" Nullable="false" />
+          <Property Name="paragrafFalse" Type="int" Nullable="false" />
+          <Property Name="dilbilgisiTrue" Type="int" Nullable="false" />
+          <Property Name="dilbilgisiFalse" Type="int" Nullable="false" />
+          <Property Name="anlatimTrue" Type="int" Nullable="false" />
+          <Property Name="anlatimFalse" Type="int" Nullable="false" />
+          <Property Name="siirTrue" Type="int" Nullable="false" />
+          <Property Name="siirFalse" Type="int" Nullable="false" />
+          <Property Name="divanTrue" Type="int" Nullable="false" />
+          <Property Name="divanFalse" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="quizMark" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userrate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="paragraf" Type="int" Nullable="false" />
+          <Property Name="dilbilgisi" Type="int" Nullable="false" />
+          <Property Name="anlatim" Type="int" Nullable="false" />
+          <Property Name="siir" Type="int" Nullable="false" />
+          <Property Name="divan" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="pass" Type="text" Nullable="false" />
+          <Property Name="authority" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="quiz_ibfk_1">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="quiz" Type="Self.quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quiz">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userrate_ibfk_1">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userrate" Type="Self.userrate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="userrate">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="studentlearnModelStoreContainer">
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="studentlearn" store:Type="Tables" />
+          <EntitySet Name="question" EntityType="Self.question" Schema="studentlearn" store:Type="Tables" />
+          <EntitySet Name="quiz" EntityType="Self.quiz" Schema="studentlearn" store:Type="Tables" />
+          <EntitySet Name="userrate" EntityType="Self.userrate" Schema="studentlearn" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="studentlearn" store:Type="Tables" />
+          <AssociationSet Name="quiz_ibfk_1" Association="Self.quiz_ibfk_1">
+            <End Role="users" EntitySet="users" />
+            <End Role="quiz" EntitySet="quiz" />
+          </AssociationSet>
+          <AssociationSet Name="userrate_ibfk_1" Association="Self.userrate_ibfk_1">
+            <End Role="users" EntitySet="users" />
+            <End Role="userrate" EntitySet="userrate" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="studentlearnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="question">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="questionName" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="questionText" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reply" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reply1" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reply2" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reply3" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="reply4" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="categoryID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="quiz">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <Property Name="paragrafTrue" Type="Int32" Nullable="false" />
+          <Property Name="paragrafFalse" Type="Int32" Nullable="false" />
+          <Property Name="dilbilgisiTrue" Type="Int32" Nullable="false" />
+          <Property Name="dilbilgisiFalse" Type="Int32" Nullable="false" />
+          <Property Name="anlatimTrue" Type="Int32" Nullable="false" />
+          <Property Name="anlatimFalse" Type="Int32" Nullable="false" />
+          <Property Name="siirTrue" Type="Int32" Nullable="false" />
+          <Property Name="siirFalse" Type="Int32" Nullable="false" />
+          <Property Name="divanTrue" Type="Int32" Nullable="false" />
+          <Property Name="divanFalse" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <Property Name="quizMark" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.quiz_ibfk_1" FromRole="quiz" ToRole="users" />
+        </EntityType>
+        <EntityType Name="userrate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <Property Name="paragraf" Type="Int32" Nullable="false" />
+          <Property Name="dilbilgisi" Type="Int32" Nullable="false" />
+          <Property Name="anlatim" Type="Int32" Nullable="false" />
+          <Property Name="siir" Type="Int32" Nullable="false" />
+          <Property Name="divan" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.userrate_ibfk_1" FromRole="userrate" ToRole="users" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="pass" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="authority" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="quizs" Relationship="Self.quiz_ibfk_1" FromRole="users" ToRole="quiz" />
+          <NavigationProperty Name="userrates" Relationship="Self.userrate_ibfk_1" FromRole="users" ToRole="userrate" />
+        </EntityType>
+        <Association Name="quiz_ibfk_1">
+          <End Role="users" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="quiz" Type="Self.quiz" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="quiz">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="userrate_ibfk_1">
+          <End Role="users" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="userrate" Type="Self.userrate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="userrate">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="studentlearnEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="questions" EntityType="Self.question" />
+          <EntitySet Name="quizs" EntityType="Self.quiz" />
+          <EntitySet Name="userrates" EntityType="Self.userrate" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="quiz_ibfk_1" Association="Self.quiz_ibfk_1">
+            <End Role="users" EntitySet="users" />
+            <End Role="quiz" EntitySet="quizs" />
+          </AssociationSet>
+          <AssociationSet Name="userrate_ibfk_1" Association="Self.userrate_ibfk_1">
+            <End Role="users" EntitySet="users" />
+            <End Role="userrate" EntitySet="userrates" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="studentlearnModelStoreContainer" CdmEntityContainer="studentlearnEntities1">
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="studentlearnModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="questions">
+            <EntityTypeMapping TypeName="studentlearnModel.question">
+              <MappingFragment StoreEntitySet="question">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="questionName" ColumnName="questionName" />
+                <ScalarProperty Name="questionText" ColumnName="questionText" />
+                <ScalarProperty Name="reply" ColumnName="reply" />
+                <ScalarProperty Name="reply1" ColumnName="reply1" />
+                <ScalarProperty Name="reply2" ColumnName="reply2" />
+                <ScalarProperty Name="reply3" ColumnName="reply3" />
+                <ScalarProperty Name="reply4" ColumnName="reply4" />
+                <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="quizs">
+            <EntityTypeMapping TypeName="studentlearnModel.quiz">
+              <MappingFragment StoreEntitySet="quiz">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="paragrafTrue" ColumnName="paragrafTrue" />
+                <ScalarProperty Name="paragrafFalse" ColumnName="paragrafFalse" />
+                <ScalarProperty Name="dilbilgisiTrue" ColumnName="dilbilgisiTrue" />
+                <ScalarProperty Name="dilbilgisiFalse" ColumnName="dilbilgisiFalse" />
+                <ScalarProperty Name="anlatimTrue" ColumnName="anlatimTrue" />
+                <ScalarProperty Name="anlatimFalse" ColumnName="anlatimFalse" />
+                <ScalarProperty Name="siirTrue" ColumnName="siirTrue" />
+                <ScalarProperty Name="siirFalse" ColumnName="siirFalse" />
+                <ScalarProperty Name="divanTrue" ColumnName="divanTrue" />
+                <ScalarProperty Name="divanFalse" ColumnName="divanFalse" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="quizMark" ColumnName="quizMark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userrates">
+            <EntityTypeMapping TypeName="studentlearnModel.userrate">
+              <MappingFragment StoreEntitySet="userrate">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="paragraf" ColumnName="paragraf" />
+                <ScalarProperty Name="dilbilgisi" ColumnName="dilbilgisi" />
+                <ScalarProperty Name="anlatim" ColumnName="anlatim" />
+                <ScalarProperty Name="siir" ColumnName="siir" />
+                <ScalarProperty Name="divan" ColumnName="divan" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="studentlearnModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="authority" ColumnName="authority" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
